@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello IndexController!{% endblock %}
+{% block title %}Index{% endblock %}
 
 {% block body %}
     <style>
@@ -55,8 +55,7 @@
                         <form><button class="btn btn-success" type="submit" name="achat" id="achat">Ajouter au panier</button></form>  
                     </td>   #}
                     <td>
-                    <button class="btn btn-outline-success">Ajouter au panier</button>
-                    {% form(form) %}
+                        <button class="btn btn-outline-success">Ajouter au panier</button>
                     </td>
                 </tr>
             {% endfor %}
