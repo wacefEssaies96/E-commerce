@@ -9,8 +9,8 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
 use App\Entity\User;
+
 class RegisterController extends AbstractController
 {
     /**
@@ -37,7 +37,6 @@ class RegisterController extends AbstractController
         
         if($form->isSubmitted()){
             $data = $form->getData();
-
             $user = new User();
             $user->setUsername($data['username']);
             $user->setpassword(
