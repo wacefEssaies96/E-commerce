@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello!{% endblock %}
+
+{% block body %}
+    <h1 class="text-primary">Caractéristique du produit : </h1>
+    <h3 class="text-info text-center">{{produit.nom}}</h3>
+    <p class="text-success text-center">{{produit.prix}}</p>
+    <p class="text-success text-center">{{produit.description_produit}}</p>
+{% endblock %}

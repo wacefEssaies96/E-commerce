@@ -7,27 +7,6 @@
         .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
         .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
     </style>
-
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="">Liste des produits</a>
-            </li>
-            {# <li class="nav-item">
-                <a class="nav-link" href="">Vehicule</a>
-            </li> #}
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('app_logout') }}">Deconnecter</a>
-            </li>
-        </ul>
-    </nav>
-    <br>
-    {% for message in app.flashes %}
-        <div class="alert alert-success">{{ message }}</div>
-    {% endfor %}
     <div>
         {% if name %}
             <p>Vous éte connecté en tant que : <strong class="text-primary">{{ name.getUserName }}</strong></p>
@@ -40,26 +19,20 @@
             <h3 class="text-center text-info">Liste des produits disponible</h3>
         </div>
         
-        <table class="table">
-            <tr>
-                <td><strong class="text-primary">Nom du produit</strong></td>
-                <td><strong class="text-primary">Prix</strong></td>
-                {# <td>Description</td> #}
-            </tr>
-             {% for produit in list %}
-                <tr>
-                    <td>{{ produit.nom }}</td>
-                    <td>{{ produit.prix }}</td>
-                    {# <td>{{ produit.description_produit }}</td> #}
-                    {# <td>
-                        <form><button class="btn btn-success" type="submit" name="achat" id="achat">Ajouter au panier</button></form>  
-                    </td>   #}
-                    <td>
-                        <button class="btn btn-outline-success">Ajouter au panier</button>
-                    </td>
-                </tr>
+            {% for produit in list %}
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{{ path('produit.show', { id:produit.id , slug: produit.slug}) }}">{{produit.nom}}</a>
+                            </h5>
+                            <p class="text-success">{{produit.prix}}</p>
+                        </div>
+                    </div>
+                </div>
+
             {% endfor %}
-        </table>
+        
     </div>
     
 {% endblock %}
