@@ -1,4 +1,7 @@
 index:
    path: /
    controller: App\Controller\IndexController::index
+register:
+   path : /register
+   controller: App\Controller\RegisterController::register
 
