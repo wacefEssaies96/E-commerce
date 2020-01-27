@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use App\Entity\User;
 
 class SecurityController extends AbstractController
 {
@@ -16,9 +17,8 @@ class SecurityController extends AbstractController
     {
         //redirect if already logged in
          if ($this->getUser()) {
-             return $this->redirectToRoute('index');
+            return $this->redirectToRoute('index');
          }
-
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user

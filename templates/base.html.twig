@@ -8,23 +8,34 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-    <div class="container">
-           <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('index') }}">Liste des produits</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('register') }}">S'inscrire</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('app_logout') }}">Deconnecter</a>
-            </li>
-        </ul>
-    </nav>
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('index') }}">Liste des produits</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('register') }}">S'inscrire</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                 {% if app.user == false %}
+                 <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+                </li>
+                {% endif %}
+                 {% if app.user %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_logout') }}">Deconnecter</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+         <div>
+        {% if app.user %}
+            <p>Vous éte connecté en tant que : <strong class="text-primary">{{ app.user.getUserName }}</strong></p>
+        {% endif %}
+    </div>
     <br>
         {% block body %}
       
@@ -35,6 +46,5 @@
         
         {% endblock %}
 
-    </div>
     </body>
 </html>
