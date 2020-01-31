@@ -27,18 +27,20 @@ class ProduitController extends AbstractController
             $qtt = $form['qtt']->getData();
             $liv = $form['liv']->getData();
             $user = $this->getUser();
-           
-            //$quatite = $datass;
-            //dump($datass);
-            $panier->setUserId($user->getId());
-            $panier->setProdId($id);
-            $panier->setQtt($qtt);
-            $panier->setLiv($liv);
+            if($user == null){
+                return $this->redirect($this->generateUrl('app_login'));
+            }
+            else{
+                $panier->setUserId($user->getId());
+                $panier->setProdId($id);
+                $panier->setQtt($qtt);
+                $panier->setLiv($liv);
 
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($panier);
-            $em->flush();
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($panier);
+                $em->flush();
+            }
             return $this->redirect($this->generateUrl('index'));
         }
 
