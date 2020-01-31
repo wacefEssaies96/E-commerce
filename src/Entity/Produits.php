@@ -3,18 +3,40 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Cocur\Slugify\Slugify;
+
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProduitsRepository")
+ * @Vich\Uploadable
  */
 class Produits
 {
+    const CATEGORIE = [
+        0 => 'Ordinateur',
+        1 => 'Ecran',
+        2 => 'Clavier',
+        3 => 'Souris',
+    ];
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", length=255)
+    */
+    private $filename;
+
+    /**
+     * @var File|null
+     * @Vich\UploadableField(mapping="produit_image", fileNameProperty="filename") 
+    */
+    private $imageFile;
 
     /**
      * @ORM\Column(type="string", length=50)
@@ -27,14 +49,19 @@ class Produits
     private $prix;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", length=255)
      */
-    private $description_produit;
-    
-    public function getSlug(): ?String
-    {
-        return (new Slugify())->slugify($this->nom);
-    }
+    private $descProd;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $categorie;
 
     public function getId(): ?int
     {
@@ -65,14 +92,70 @@ class Produits
         return $this;
     }
 
-    public function getDescriptionProduit(): ?string
+    public function getDescProd(): ?string
     {
-        return $this->description_produit;
+        return $this->descProd;
     }
 
-    public function setDescriptionProduit(string $description_produit): self
+    public function setDescProd(string $descProd): self
     {
-        $this->description_produit = $description_produit;
+        $this->descProd = $descProd;
+
+        return $this;
+    }
+
+
+
+
+
+    public function getFilename(): ?string
+    {
+        return $this->filename;
+    }
+
+    public function setFilename(?string $filename): self
+    {
+        $this->filename = $filename;
+
+        return $this;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+    public function setImageFile(file $imageFile): self
+    {
+        $this->imageFile = $imageFile;
+       
+            $this->updated_at = new \DateTime('now');
+      
+        return $this;
+    }
+
+
+
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?int
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(int $categorie): self
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }

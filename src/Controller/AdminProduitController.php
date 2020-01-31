@@ -62,4 +62,20 @@ class AdminProduitController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+    /**
+    * @Route("/admin/supp/{id}", name="admin.supp")
+    */
+    public function supprimer($id){
+
+        $repository = $this->getDoctrine()->getRepository('App:Produits');
+        $produit = $repository->find($id);
+
+        $em = $this->getDoctrine()->getManager();
+        
+        $em->remove($produit);
+
+        $em->flush();
+        $this->addFlash('success', 'Produit a été supprimé avec succées');
+        return $this->redirect($this->generateUrl('admin_produit'));
+    }
 }

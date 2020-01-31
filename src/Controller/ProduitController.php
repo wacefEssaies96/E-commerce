@@ -4,26 +4,51 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Request;
+use App\Form\PanierType;
+use App\Entity\Panier;
 class ProduitController extends AbstractController
 {
     /**
-     * @Route("/produit", name="produit")
+     * @Route("/produit/{id}", name="produit.show")
      */
-    public function index()
-    {
-        return $this->render('produit/index.html.twig', [
-            'controller_name' => 'ProduitController',
-        ]);
-    }
-    /**
-     * @Route("/produit/{slug}-{id}", name="produit.show" , requirements={"slug": "[a-z0-9\-]*"})
-     */
-    public function show($slug,$id){
+    public function show($id,Request $request){
         $repository = $this->getDoctrine()->getRepository('App:Produits');
         $produit = $repository->find($id);
+
+        $form = $this->createForm(PanierType::class);        
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted()){
+
+            $panier = new Panier();
+            
+            $qtt = $form['qtt']->getData();
+            $liv = $form['liv']->getData();
+            $user = $this->getUser();
+           
+            //$quatite = $datass;
+            //dump($datass);
+            $panier->setUserId($user->getId());
+            $panier->setProdId($id);
+            $panier->setQtt($qtt);
+            $panier->setLiv($liv);
+
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($panier);
+            $em->flush();
+            return $this->redirect($this->generateUrl('index'));
+        }
+
+        
+
         return $this->render('produit/index.html.twig', [
-            'produit' => $produit
+            'produit' => $produit,
+            'form' => $form->createView(),
+
         ]);
     }
+    
 }

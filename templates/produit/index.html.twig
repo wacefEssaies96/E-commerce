@@ -3,10 +3,28 @@
 {% block title %}Hello!{% endblock %}
 
 {% block body %}
-    <div class="jumbotron text-center"><h1 class="text-primary">Caractéristique du produit : </h1></div>
+    
     <div class="container">
-        <h3 class="text-info">{{produit.nom}}</h3>
-        <p class="text-success">{{produit.prix}}</p>
-    {# <p class="text-success text-center">{{produit.description_produit}}</p> #}
+    <div class="jumbotron text-center"><h1 class="text-primary">Caractéristique du produit : </h1></div>
+        {% if produit.filename %}
+            <img class="float-left" src="/images/produits/{{ produit.filename }}" style="height:auto; width:300px;">
+        {% endif %}
+        <div class="card">
+            <div class="card-head">
+                <h3 class="text-info">{{produit.nom}}</h3>
+            </div>
+            <div class="card-body">
+                <strong><p class="text-success">Prix : {{produit.prix}}</p></strong>
+                <p class="">Description : {{produit.descProd}}</p>
+                {{ form_start(form) }}
+                    <div class="row">
+                        <div class="col-md-4"> {{ form_row(form.qtt)}} </div>
+                        <div class="col-md-4"> {{ form_row(form.liv)}} </div>
+                    </div>
+                    {{ form_widget(form) }}
+                    <button class="btn btn-success">Acheter</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
     </div>
 {% endblock %}

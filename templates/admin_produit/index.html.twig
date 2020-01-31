@@ -1,16 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdminProduitController!{% endblock %}
+{% block title %}Admin!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-{% for message in app.flashes('success') %}
-    <div class="alert alert-success">{{ message }}</div>
-{% endfor %}
-<div class="example-wrapper">
+
+<div class="container">
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
 <a class="btn btn-primary" href="{{ path('admin.ajouter') }}">Ajouter un nouveau produit</a>
 
     <table class="table table-striped">
@@ -23,8 +20,14 @@
         <tbody>
         {% for produit in produits %}
             <tr>
-                <td class="text-info" >{{produit.nom}}</td>
-                <td><a class="btn btn-success" href="{{ path('admin.edit', {id : produit.id}) }}">Editer</a></td>
+                <td class="text-info">
+                    {% if produit.filename %}
+                        <img class="float-left" src="/images/produits/{{ produit.filename }}" style="height:auto; width:300px;">
+                    {% endif %}  
+                    &nbsp{{produit.nom}}
+                </td>
+                <td><a class="btn btn-success" href="{{ path('admin.edit', {id : produit.id}) }}">Editer</a>
+               <a class="btn btn-danger" href="{{ path('admin.supp', {id : produit.id}) }}">Supprimer</a></td>
             </tr>
         {% endfor %}
         </tbody>

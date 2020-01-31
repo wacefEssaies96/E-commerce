@@ -6,15 +6,26 @@ use App\Entity\Produits;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ProduitType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('prix')
-            ->add('description_produit')
+            ->add('nom',null,['label' => 'Nom'])
+            ->add('prix', null, ['label' => 'Prix'])
+            ->add('descProd',null,['label' => 'Description'])
+            ->add('categorie',ChoiceType::class,[
+                'label' => 'Categorie',
+                'choices' => $this->getChoices()    
+            ])
+            ->add('imageFile', FileType::class, [
+                'required' => false,
+                'label' => 'Image'
+            ])
+            
         ;
     }
 
@@ -23,5 +34,13 @@ class ProduitType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Produits::class,
         ]);
+    }
+    public function getChoices(){
+        $choices = Produits::CATEGORIE;
+        $output=[];
+        foreach($choices as $item => $i){
+            $output[$i] = $item;
+        }
+        return $output;
     }
 }
