@@ -35,25 +35,36 @@ class RegisterController extends AbstractController
         
         $form->handleRequest($request);
         
-        if($form->isSubmitted()){
-            $data = $form->getData();
-            $user = new User();
+        if($form->isSubmitted()&&$form->isValid()){
         
-            $user->setUsername($data['username']);
-            $user->setpassword(
-                $passEncoder->encodePassword($user,$data['password'])
-            );
-            //$user->setRoles(['ROLE_ADMIN']);
+            $data = $form->getData();
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
+            $repository = $this->getDoctrine()->getRepository('App:User');
+            $variable = $repository->findOneBy(array('username' => $data['username']));
+          
 
-            return $this->redirect($this->generateUrl('app_login'));
+            if($variable != null){
+                $this->addFlash('error', 'Utilisateur déja inscrit ! ');
+            }
+            else{
+                $data = $form->getData();
+                $user = new User();
+            
+                $user->setUsername($data['username']);
+                $user->setpassword(
+                    $passEncoder->encodePassword($user,$data['password'])
+                );
+                //$user->setRoles(['ROLE_ADMIN']);
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($user);
+                $em->flush();
+                return $this->redirect($this->generateUrl('app_login'));
+            }
         }
-
         return $this->render('register/index.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            
         ]);
 
     }
