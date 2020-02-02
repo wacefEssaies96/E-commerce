@@ -10,7 +10,9 @@
          {% for message in app.flashes('error') %}
             <div class="alert alert-danger">{{ message }}</div>
         {% endfor %}
-        {{ form(form) }}
+        {{ form_start(form) }}
+            {{ form_rest(form) }}
+        {{ form_end(form) }}
         </div>
     </div>
        <!-- Footer -->

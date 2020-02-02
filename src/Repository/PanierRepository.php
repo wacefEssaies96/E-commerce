@@ -27,7 +27,7 @@ class PanierRepository extends ServiceEntityRepository
     public function findByProduits($userId)
     {
         return $this->createQueryBuilder('p')
-            ->select('pa','pp.nom','pp.prix','pp.descProd','pp.filename')    
+            ->select('pa','pp.id','pp.nom','pp.prix','pp.descProd','pp.filename')    
             ->from(panier::class,'pa')
             ->join(Produits::class,'pp')
             ->where("pa.userId = $userId","pp.id = pa.ProdId ")

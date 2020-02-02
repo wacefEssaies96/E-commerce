@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Entity\User;
+use App\Form\RegisterType;
 
 class RegisterController extends AbstractController
 {
@@ -18,53 +19,35 @@ class RegisterController extends AbstractController
      */
     public function register(Request $request,UserPasswordEncoderInterface $passEncoder)
     {
-        $form = $this->createFormBuilder()
-        ->add('username')
-        ->add('password',RepeatedType::class, [
-            'type' => PasswordType::class,
-            'required' => true,
-            'first_options' => ['label' => 'Password'],
-            'second_options' => ['label' => 'Confirm Pasword']
-        ])
-        ->add('register', SubmitType::class, [
-            'attr' => [
-                'class' => 'btn btn-success'
-            ]
-        ])
-        ->getForm();
+        $user = new User();
+        $repository = $this->getDoctrine()->getRepository('App:User');
+        $form = $this->createForm(RegisterType::class);
         
         $form->handleRequest($request);
         
         if($form->isSubmitted()&&$form->isValid()){
-        
             $data = $form->getData();
-
-            $repository = $this->getDoctrine()->getRepository('App:User');
-            $variable = $repository->findOneBy(array('username' => $data['username']));
-          
+            $username = $data->getUserName();
+            $pass = $data->getPassword();
+            $variable = $repository->findOneBy(array('username' => $username));
 
             if($variable != null){
                 $this->addFlash('error', 'Utilisateur déja inscrit ! ');
             }
             else{
-                $data = $form->getData();
-                $user = new User();
-            
-                $user->setUsername($data['username']);
-                $user->setpassword(
-                    $passEncoder->encodePassword($user,$data['password'])
+                $data->setpassword(
+                    $passEncoder->encodePassword($user,$pass)
                 );
-                //$user->setRoles(['ROLE_ADMIN']);
-
+                //$data->setRoles(["ROLE_ADMIN"]);
                 $em = $this->getDoctrine()->getManager();
-                $em->persist($user);
+                $em->persist($data);
                 $em->flush();
                 return $this->redirect($this->generateUrl('app_login'));
+                dump('mrigel');
             }
         }
         return $this->render('register/index.html.twig', [
             'form' => $form->createView(),
-            
         ]);
 
     }

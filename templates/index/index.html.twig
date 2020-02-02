@@ -28,19 +28,24 @@
         <div class="row justify-content-between">
         {% for produit in list %}
             <div class="col-4">
-                <div class="card">
+                <div class="card bg-light">
                     {% if produit.filename %}
-                        <img src="/images/produits/{{ produit.filename }}" style="height:100%px; width:100%;">
+                        <img src="/images/produits/{{ produit.filename }}" style="height:100%; width:100%;">
                     {% endif %}
                     <h5 class="text-center">
                         <a href="{{ path('produit.show', { id:produit.id}) }}">{{produit.nom}}</a>
                     </h5>
                     <p class="text-success text-center">Prix : {{produit.prix}}</p>
+                   
+                    <a class="btn btn-success" href=" {{ path('index.ajouter.panier', {id:produit.id}) }} ">Ajouter au panier</a>
+
                 </div>
             </div>
         {% endfor %}
         </div>
-
+        <div class="navigation">
+            {{ knp_pagination_render(list) }}
+        </div>
         </div>
     </div>
    <!-- Footer -->

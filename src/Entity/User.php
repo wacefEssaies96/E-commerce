@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -32,6 +33,14 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Email(
+     *      message = "Votre E-mail {{ value }} n'est pas valide !"
+     * )
+     */
+    private $email;
 
     public function getId(): ?int
     {
@@ -71,6 +80,7 @@ class User implements UserInterface
     {
         $this->roles = $roles;
         
+        
         return $this;
     }
 
@@ -84,8 +94,9 @@ class User implements UserInterface
 
     public function setPassword(string $password): self
     {
-        $this->password = $password;
 
+        $this->password = $password;
+        
         return $this;
     }
 
@@ -104,5 +115,17 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
     }
 }
