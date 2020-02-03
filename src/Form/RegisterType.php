@@ -7,6 +7,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class RegisterType extends AbstractType
 {
@@ -14,24 +16,28 @@ class RegisterType extends AbstractType
     {
         $builder
             ->add('username',null,[
-                'label' => 'Nom : '
+                'label' => 'Nom : ','required' => true
             ])
             ->add('email',null,[
-                'label' =>'Adresse E-mail : '
+                'label' =>'Adresse E-mail : ','required' => true
             ])
             //->add('roles')
-            ->add('password',null,[
-                'label' => 'Mot de passe : '
+            ->add('password',RepeatedType::class,[
+                'type' => PasswordType::class,
+                'required' => true,
+                'first_options' => ['label' => 'Mot de passe : ','required' => true],
+                'second_options' => ['label' => 'Confirmer le mot de passe : ','required' => true]
             ])
             ->add('Enregistrer',SubmitType::class,[
-                'label' => 'Enregistrer',
+                
                 'attr' => [
-                    'class' => 'btn btn-success'
+                    'class' => 'btn btn-success',
+                    'label' => 'Enregistrer',
+                    'required' => true
                 ]
             ])
         ;
     }
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

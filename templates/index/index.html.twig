@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="jumbotron">
-            <h3 class="text-center text-info">Liste des produits disponible</h3>
+            <h1 class="text-center text-info">Liste des produits disponible</h1>
         </div>
     <div class="container">
     <div class="test">
@@ -13,7 +13,7 @@
         {% endfor %}
         
         <div class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a style="margin-bottom: 25px;" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Categorie
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -43,7 +43,7 @@
             </div>
         {% endfor %}
         </div>
-        <div class="navigation">
+        <div class="navigation" style="margin-top:20px; margin-left: 37%;">
             {{ knp_pagination_render(list) }}
         </div>
         </div>

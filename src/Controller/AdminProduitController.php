@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 class AdminProduitController extends AbstractController
 {
     /**
-     * @Route("/admin", name="admin_produit")
+     * @Route("/admin/produit", name="admin_produit")
      */
     public function index()
     {

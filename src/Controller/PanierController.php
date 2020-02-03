@@ -62,6 +62,7 @@ class PanierController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em->remove($panier);
         $em->flush();
+        $this->addFlash('success','Le produit a été supprimé de votre panier ! ');
         return($this->redirect($this->generateUrl('panier.produits')));
     }
     /**
@@ -82,6 +83,7 @@ class PanierController extends AbstractController
             $em->flush();
             return $this->redirect($this->generateUrl('panier.produits'));
         }
+        $this->addFlash('success','Le produit : '.$produit->getNom().' a été modifié ! ');
         return $this->render('panier/edit.html.twig', [
             'produit' => $produit,
             'form' => $form->createView(),

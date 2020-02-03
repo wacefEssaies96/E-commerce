@@ -1,24 +1,53 @@
 {% extends 'base.html.twig' %}
-{% block title %}S'inscrire !{% endblock %}
+
+{% block title %}AdminUser{% endblock %}
+
 {% block body %}
+<style>
+    
+</style>
 
 
+<div class="jumbotron">
+    <h3 class="text-primary text-center">Admin</h3>
+</div>
+<div class="container">
+<div class="test">
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
 
-<div class="jumbotron"><h1 class="text-center text-success">Inscription</h1></div>
-    <div class="container">
-        <div class="test">
-         {% for message in app.flashes('error') %}
-            <div class="alert alert-danger">{{ message }}</div>
+    <table class="table table-striped">
+        <thead>
+            <tr>  
+                <th>Id</th>
+                <th>Nom de l'utilisateur</th>
+                <th>E-mail</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in listUsers %}
+            <tr>
+                <td class="text-info">
+                    {{ user.id }}
+                </td>
+                <td class="text-info">
+                    {{ user.username }}
+                </td>
+                <td class="text-info">
+                    {{ user.email }}
+                </td>
+              <td> <a class="btn btn-warning" href="{{ path('admin.user.supp', {id: user.id}) }}">Supprimer</a></td>
+            </tr>
         {% endfor %}
-        <div class="card" style="width: 40%; margin-left: 30%; padding: 50px;">
-       <h1 class="h3 mb-3 font-weight-normal text-success">Veuillez remplir tous les champs :</h1>
-        {{ form_start(form) }}
-            {{ form_rest(form) }}
-        {{ form_end(form) }}
-        </div>
-      </div>
-  </div>
-       <!-- Footer -->
+        </tbody>
+    </table>
+    </div>
+</div>
+
+
+<!-- Footer -->
 <footer class="page-footer font-small blue-grey lighten-5">
 
   <div style="background-color: lightgrey;">
@@ -122,4 +151,5 @@
 
 </footer>
 <!-- Footer -->
+
 {% endblock %}

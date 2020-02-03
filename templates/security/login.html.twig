@@ -8,11 +8,11 @@
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey | trans(error.messageData, 'security') }}</div>
         {% endif %}
-
-        <h1 class="h3 mb-3 font-weight-normal">Veuillez vous connecter : </h1>
-        <label for="inputUsername">Username</label>
+      <div class="card" style="width: 40%; margin-left: 30%; padding: 50px;">
+        <h1 class="h3 mb-3 font-weight-normal text-primary">Veuillez vous connecter : </h1>
+        <label for="inputUsername">Nom : </label>
         <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" required autofocus>
-        <label for="inputPassword">Password</label>
+        <label for="inputPassword">Mot de passe : </label>
         <input type="password" name="password" id="inputPassword" class="form-control" required>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         {# Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
@@ -21,6 +21,7 @@
                 <label><input type="checkbox" name="_remember_me"> Remember me</label>
             </div>
         <button class="btn btn-lg btn-primary" type="submit">Se connecter</button>
+        </div>
     </form>
     </div>
 </div>
