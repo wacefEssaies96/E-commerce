@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Produits;
+use App\Entity\ProduitSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -18,6 +19,43 @@ class ProduitsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Produits::class);
     }
+
+    
+    public function findAllT(ProduitSearch $search)
+    {
+      $query = $this->createQueryBuilder('p');
+        if($search->getMinPrix()){
+            $query = $query
+                ->andWhere('p.prix >= :min')
+                ->setParameter(':min',$search->getMinPrix());
+        }
+        if($search->getMaxPrix()){
+            $query = $query
+                ->andWhere('p.prix <= :max')
+                ->setParameter(':max',$search->getMaxPrix());
+        }
+        $query
+            ->getQuery()
+            ->getResult();
+        return $query;
+    }
+    public function findAllCategorie(ProduitSearch $search,$categorie)
+    {
+      $query = $this->createQueryBuilder('p');
+        if($search->getMinPrix()){
+            $query = $query
+                ->andWhere('p.prix >= :min')
+                ->setParameter(':min',$search->getMinPrix());
+        }
+        if($search->getMaxPrix()){
+            $query = $query
+                ->andWhere('p.prix <= :max')
+                ->setParameter(':max',$search->getMaxPrix());
+        }
+        $query->andWhere('p.categorie = '.$categorie)->getQuery()->getResult();
+        return $query;
+    }
+    
 
     // /**
     //  * @return Produits[] Returns an array of Produits objects

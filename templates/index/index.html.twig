@@ -6,14 +6,31 @@
 <div class="jumbotron">
             <h1 class="text-center text-info">Liste des produits disponible</h1>
         </div>
+        <div class="jumbotron float-left" style="height: 600px; width: 20%; margin: 20px;">
+        <div class="text-info"><h3>Filtrer par : </h3></div>
+        
+        {{ form_start(form) }}
+            
+            <div class="row">
+                <div class="col-md-8"> {{ form_row(form.minPrix)}} </div>
+                <div class="col-md-8"> {{ form_row(form.maxPrix)}} </div>
+            </div>
+          {{ form_rest(form) }}
+            <button class="btn btn-outline-success">Recherche</a>
+        {{ form_end(form) }}
+        
+        
+        
+        
+        </div>
     <div class="container">
     <div class="test">
     {% for message in app.flashes('success') %}
-        <div class="alert alert-success">{{ message }}</div>
+        <div style="margin-left:200px;" class="alert alert-success text-center">{{ message }}</div>
         {% endfor %}
         
         <div class="dropdown">
-            <a style="margin-bottom: 25px;" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a style="margin-bottom: 25px; margin-left: 20px;" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Categorie
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
