@@ -5,16 +5,22 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class AdminUserController extends AbstractController
 {
     /**
      * @Route("/admin/user", name="admin.user")
      */
-    public function index()
+    public function index(PaginatorInterface $paginator,Request $request)
     {
         $repository = $this->getDoctrine()->getRepository('App:User');
-        $listUsers = $repository->findAll();
+        $listUsers = $paginator->paginate(
+            $repository->findAll(),
+            $request->query->getInt('page',1),
+            12
+        );
         return $this->render('admin_user/index.html.twig', [
         'listUsers' => $listUsers  
         ]);

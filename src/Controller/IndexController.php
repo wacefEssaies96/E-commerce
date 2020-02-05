@@ -26,11 +26,11 @@ class IndexController extends AbstractController
         $form = $this->createForm(ProduitSearchType::class,$search);
        
         $form->handleRequest($request);
-            $list_produits = $paginator->paginate(
-                $repository->findAllT($search),
-                $request->query->getInt('page',1),
-                6
-            );
+        $list_produits = $paginator->paginate(
+            $repository->findAllT($search),
+            $request->query->getInt('page',1),
+            6
+        );
         return $this->render('index/index.html.twig', [
             'list' => $list_produits,
             'form' =>$form->createView()
@@ -124,7 +124,6 @@ class IndexController extends AbstractController
             $panier->setProdId($id);
             $panier->setQtt(1);
             $panier->setLiv(0);
-
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($panier);

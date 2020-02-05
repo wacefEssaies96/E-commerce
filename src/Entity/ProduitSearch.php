@@ -1,10 +1,14 @@
 <?php
 namespace App\Entity;
-
+use Symfony\Component\Validator\Constraints as Assert;
 class ProduitSearch{
- 
+    /**
+     * @Assert\PositiveOrZero
+     */
     private $minPrix;
-  
+  /**
+     * @Assert\PositiveOrZero
+     */
     private $maxPrix;
     
     public function getMinPrix(): ?int

@@ -7,19 +7,23 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Form\ProduitType;
 use App\Entity\Produits;
 use Symfony\Component\HttpFoundation\Request;
+use Knp\Component\Pager\PaginatorInterface;
 
 class AdminProduitController extends AbstractController
 {
     /**
      * @Route("/admin/produit", name="admin_produit")
      */
-    public function index()
+    public function index(PaginatorInterface $paginator,Request $request)
     {
         $repository = $this->getDoctrine()->getRepository('App:Produits');
-        $list = $repository->findAll();
+        $list_produits = $paginator->paginate(
+            $repository->findAll(),
+            $request->query->getInt('page',1),
+            6
+        );
         return $this->render('admin_produit/index.html.twig', [
-            'controller_name' => 'AdminProduitController',
-            'produits' => $list
+            'produits' => $list_produits
         ]);
     }
     /**
