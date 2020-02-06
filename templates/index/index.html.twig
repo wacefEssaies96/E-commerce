@@ -22,6 +22,9 @@
         {% for message in app.flashes('success') %}
         <div style="margin-left:200px;" class="alert alert-success text-center">{{ message }}</div>
         {% endfor %}
+        {% for message in app.flashes('error') %}
+            <div style="margin-left:200px;" class="alert alert-danger text-center">{{ message }}</div>
+        {% endfor %}
         <div class="dropdown">
             <a style="margin-bottom: 25px; margin-left: 20px;" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Categorie

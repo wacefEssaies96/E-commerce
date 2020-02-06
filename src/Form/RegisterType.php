@@ -16,10 +16,12 @@ class RegisterType extends AbstractType
     {
         $builder
             ->add('username',null,[
-                'label' => 'Nom : ','required' => true
+                'label' => 'Nom : ',
+                'required' => true
             ])
             ->add('email',null,[
-                'label' =>'Adresse E-mail : ','required' => true
+                'label' =>'Adresse E-mail : ',
+                'required' => true
             ])
             //->add('roles')
             ->add('password',RepeatedType::class,[
@@ -29,7 +31,6 @@ class RegisterType extends AbstractType
                 'second_options' => ['label' => 'Confirmer le mot de passe : ','required' => true]
             ])
             ->add('Enregistrer',SubmitType::class,[
-                
                 'attr' => [
                     'class' => 'btn btn-success',
                     'label' => 'Enregistrer',

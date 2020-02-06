@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contactez-nous{% endblock %}
+
+{% block body %}
+<style>
+  
+</style>
+ <div class="jumbotron"><h1 class="text-center text-info">Contactez-nous</h1></div>
+<div class="container">
+    <div class="test">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        <div class="card" style="margin-left: 25%; width: 50%;">
+           <div class="card-head"><h4 style="margin-left: 100px; margin-top: 20px;" class="text-info">Contactez-nous</h4></div>
+            <div class="card-body">
+            {{ form_start(form) }}
+                {{ form_rest(form) }}
+                <button class="btn btn-success">Envoyer</button>
+            {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

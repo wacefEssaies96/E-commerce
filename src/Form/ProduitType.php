@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ProduitType extends AbstractType
 {
@@ -16,7 +17,7 @@ class ProduitType extends AbstractType
         $builder
             ->add('nom',null,['label' => 'Nom'])
             ->add('prix', null, ['label' => 'Prix'])
-            ->add('descProd',null,['label' => 'Description'])
+            ->add('descProd',TextareaType::class,['label' => 'Description'])
             ->add('categorie',ChoiceType::class,[
                 'label' => 'Categorie',
                 'choices' => $this->getChoices()    
@@ -24,11 +25,9 @@ class ProduitType extends AbstractType
             ->add('imageFile', FileType::class, [
                 'required' => false,
                 'label' => 'Image'
-            ])
-            
+            ]) 
         ;
     }
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

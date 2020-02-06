@@ -119,21 +119,25 @@ class IndexController extends AbstractController
     public function ajouterAuPanier($id){
 
         if($this->getUser()){
-            $panier = new Panier();
-            $panier->setUserId($this->getUser()->getId());
-            $panier->setProdId($id);
-            $panier->setQtt(1);
-            $panier->setLiv(0);
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($panier);
-            $em->flush();
+            $repository = $this->getDoctrine()->getRepository('App:Panier');
+            $exist = $repository->findOneBy(array('ProdId' => $id,'userId' => $this->getUser()->getId()));
+            if($exist == null){
+                $panier = new Panier();
+                $panier->setUserId($this->getUser()->getId());
+                $panier->setProdId($id);
+                $panier->setQtt(1);
+                $panier->setLiv(0);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($panier);
+                $em->flush();
+                $this->addFlash('success','Le produit a été ajouté dans votre panier !');
+            }
+            else{
+                $this->addFlash('error','Le produit est deja dans votre panier !');
+            }
         }else{
            return $this->redirect($this->generateUrl('app_login'));
         }
-
-
-        $this->addFlash('success','Le produit a été ajouté dans votre panier !');
         return $this->redirect($this->generateUrl('index'));
     }
 }
