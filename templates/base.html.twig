@@ -13,7 +13,17 @@
                 min-height: 700px;
                 width: auto;
             }
-        
+            body{
+              background-image: url({{ asset('images/background/bbbb.png') }} );
+              background-attachment: fixed;
+              background-size: 100%;
+            }
+            .jumbotron{
+              background-color: rgb(220, 220, 220);
+            }
+            .ico{
+              width: 25px;
+            }
         </style>
         {% block stylesheets %}{% endblock %}
     </head>
@@ -27,10 +37,10 @@
                     <a class="nav-link" href="{{ path('index') }}">Liste des produits</a>
                 </li>
                 <li>
-                    <a class="nav-link" href="{{ path('panier.produits') }}">Panier</a>
+                    <a class="nav-link" href="{{ path('panier.produits') }}"><img class="ico" src="{{ asset('images/background/panier.png') }}">&nbspPanier</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('register') }}">S'inscrire</a>
+                    <a class="nav-link" href="{{ path('register') }}"><img class="ico" src="{{ asset('images/background/registerIcon.png') }}">&nbspS'inscrire</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('contact') }}">Contactez-nous</a>
