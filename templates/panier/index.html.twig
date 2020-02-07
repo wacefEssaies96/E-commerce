@@ -11,6 +11,9 @@
     {% for message in app.flashes('success') %}
       <div class="alert alert-success">{{ message }}</div>
     {% endfor %}
+    {% for message in app.flashes('error') %}
+            <div style="margin-left:200px;" class="alert alert-danger text-center">{{ message }}</div>
+        {% endfor %}
    
     {% if panier %}
         <div class="text-info">

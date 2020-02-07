@@ -22,9 +22,7 @@ class RegisterController extends AbstractController
         $user = new User();
         $repository = $this->getDoctrine()->getRepository('App:User');
         $form = $this->createForm(RegisterType::class);
-        
         $form->handleRequest($request);
-        
         if($form->isSubmitted()&&$form->isValid()){
             $data = $form->getData();
             $username = $data->getUserName();
@@ -43,7 +41,6 @@ class RegisterController extends AbstractController
                 $em->persist($data);
                 $em->flush();
                 return $this->redirect($this->generateUrl('app_login'));
-                dump('mrigel');
             }
         }
         return $this->render('register/index.html.twig', [

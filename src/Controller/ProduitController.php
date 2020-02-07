@@ -28,16 +28,21 @@ class ProduitController extends AbstractController
             if($user == null){
                 return $this->redirect($this->generateUrl('app_login'));
             }
-
             else{
-                $panier->setUserId($user->getId());
-                $panier->setProdId($id);
-                $panier->setQtt($qtt);
-                $panier->setLiv($liv);
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($panier);
-                $em->flush();
-                $this->addFlash('success', 'Le produit a été ajouté au panier avec succées');
+                $repository = $this->getDoctrine()->getRepository('App:Panier');
+                $exist = $repository->findOneBy(array('ProdId' => $id,'userId' => $this->getUser()->getId()));
+                if($exist == null){
+                    $panier->setUserId($user->getId());
+                    $panier->setProdId($id);
+                    $panier->setQtt($qtt);
+                    $panier->setLiv($liv);
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($panier);
+                    $em->flush();
+                    $this->addFlash('success', 'Le produit a été ajouté au panier avec succées');
+                }else{
+                    $this->addFlash('error','Le produit est deja dans votre panier !');;
+                }
             }
             return $this->redirect($this->generateUrl('index'));
         }
