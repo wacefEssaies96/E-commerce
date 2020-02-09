@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminCommand{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+<div class="jumbotron"><h1 class="text-center text-info">Commandes</h1></div>
+<div class="container">
+    <div class="test">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>UserId</th>
+                    <th>ProdId</th>
+                    <th>Quantité</th>
+                    <th>Livrason</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for item in list %}
+                <tr>
+                    <td class="text-info">
+                        {{item.id}}
+                    </td>
+                    <td class="text-info">
+                        {{item.userId}}
+                    </td>
+                    <td class="text-info">
+                        {{item.ProdId}}
+                    </td>
+                    <td class="text-info">
+                        {{item.qtt}}
+                    </td>
+                    <td class="text-info">
+                        {{item.liv}}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

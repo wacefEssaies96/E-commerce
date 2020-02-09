@@ -24,34 +24,32 @@ class PanierController extends AbstractController
         $repositoryPanier = $this->getDoctrine()->getRepository('App:Panier');
         $panier = $repositoryPanier->findByProduits($user);
         $total = 0;
-      
         if(!empty($panier)){
             foreach ($panier as $item){
                 $total += $item['prix'];
             }
         }
-        $form = $this->createFormBuilder()
-            ->add('Confirmer',SubmitType::class,[
-                'attr' => [
-                    'class' => 'btn btn-success'
-                ]
-            ])
-            ->getForm();
-        $form->handleRequest($request);
-        $em = $this->getDoctrine()->getManager();
-        if($form->isSubmitted()){
-            $length = $repositoryPanier->findBy(array('userId' => $user));
-            for($i=0;$i<sizeof($length);$i++){
-                $item = $repositoryPanier->findOneBy(array('userId' => $user));
-                $em->remove($item);
-                $em->flush();
-            }
-            return $this->redirect($this->generateUrl('panier.produits'));
-        }
+        // $form = $this->createFormBuilder()
+        //     // ->add('Confirmer',SubmitType::class,[
+        //     //     'attr' => [
+        //     //         'class' => 'btn btn-success'
+        //     //     ]
+        //     // ])
+        //     ->getForm();
+        // $form->handleRequest($request);
+        // $em = $this->getDoctrine()->getManager();
+        // if($form->isSubmitted()){
+        //     // $length = $repositoryPanier->findBy(array('userId' => $user));
+        //     // for($i=0;$i<sizeof($length);$i++){
+        //     //     $item = $repositoryPanier->findOneBy(array('userId' => $user));
+        //     //     $em->remove($item);
+        //     //     $em->flush();
+        //     // }
+        //     return $this->redirect($this->generateUrl('paiement'));
+        // }
         return $this->render('panier/index.html.twig', [
             'panier' => $panier,
             'total' => $total,
-            'form' => $form->createView()
         ]);
     }
     /**

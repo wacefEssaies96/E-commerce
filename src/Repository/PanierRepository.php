@@ -19,7 +19,6 @@ class PanierRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Panier::class);
     }
-
     // /**
     //  * @return Panier[] Returns an array of Panier objects
     //  */
@@ -35,7 +34,6 @@ class PanierRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-   
     /*
     public function findByExampleField($value)
     {

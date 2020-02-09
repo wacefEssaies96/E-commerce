@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Achat{% endblock %}
+
+{% block body %}
+<div class="jumbotron">
+    <h1 class="text-primary text-center">Paiement</h1>
+</div>
+<div class="container">
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+    <div class="test">
+       <div class="card" style="width: 40%; margin-left: 30%; padding: 50px;">
+            <h1 class="h3 mb-3 font-weight-normal text-primary">Veuillez remplir tous les champs :</h1>
+            {{ form_start(form) }}
+                {{ form_rest(form) }}   
+                <button class="btn btn-success">Confirmer</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -11,6 +11,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface
 {
+    const PAYS = [
+        0 => 'Tunisie',
+        1 => 'France',
+        2 => 'Algerie',
+        3 => 'Maroc',
+        4 => 'Allemagne',
+        5 => 'Suisse',
+        6 => 'Etats unie'
+    ];
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -41,6 +50,28 @@ class User implements UserInterface
      * )
      */
     private $email;
+
+    /**
+     * @ORM\Column(type="bigint", nullable=true)
+     */
+    private $tel;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $adresse;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $codePostal;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $pays;
+
+   
 
     public function getId(): ?int
     {
@@ -128,4 +159,54 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getTel(): ?string
+    {
+        return $this->tel;
+    }
+
+    public function setTel(?string $tel): self
+    {
+        $this->tel = $tel;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(?string $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getCodePostal(): ?int
+    {
+        return $this->codePostal;
+    }
+
+    public function setCodePostal(?int $codePostal): self
+    {
+        $this->codePostal = $codePostal;
+
+        return $this;
+    }
+
+    public function getPays(): ?int
+    {
+        return $this->pays;
+    }
+
+    public function setPays(?int $pays): self
+    {
+        $this->pays = $pays;
+
+        return $this;
+    }
+
+    
 }

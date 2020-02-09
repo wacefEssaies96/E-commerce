@@ -17,10 +17,11 @@
    
     {% if panier %}
         <div class="text-info">
-            <strong>Prix total {{ total }}</strong>
+            <strong>Prix total {{ total }} dt</strong>
         </div>
-        {# <button class="btn btn-success"><img class="ico" src="{{ asset('images/background/iconValidPanier.png') }}"> COnfirmer</button> #}
-        {{ form(form) }}
+
+        <a href="{{ path('paiement', { total: total }) }}" class="btn btn-success"><img class="ico" src="{{ asset('images/background/iconValidPanier.png') }}">Acheter tous</a>
+
         {% for produit in panier %}   
         <div class="card">
             <div class="card-body">
@@ -30,7 +31,7 @@
                 <div class="card-head">
                     <h3 class="text-primary">{{ produit.nom }}</h3>
                 </div>
-                <strong><p class="text-success">Prix : {{ produit.prix }}</P></strong>
+                <strong><p class="text-success">Prix : {{ produit.prix }} dt</P></strong>
                 <strong><p class="text-info">Quantité : {{ produit[0].qtt }}</P></strong>
                 <strong>
                     {% if produit[0].liv == 1 %}

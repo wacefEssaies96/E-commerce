@@ -49,7 +49,7 @@
                         <h5 class="text-center">
                             <a href="{{ path('produit.show', { id:produit.id}) }}">{{produit.nom}}</a>
                         </h5>
-                        <p class="text-success text-center">Prix : {{produit.prix}}</p>
+                        <p class="text-success text-center">Prix : {{produit.prix}} dt</p>
                     
                         <a class="btn btn-success" href=" {{ path('index.ajouter.panier', {id:produit.id}) }} ">Ajouter au panier</a>
                     </div>
