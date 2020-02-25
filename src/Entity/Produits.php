@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -61,6 +63,27 @@ class Produits
      * @ORM\Column(type="integer")
      */
     private $categorie;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $qtt;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Panier", mappedBy="pid")
+     */
+    private $panier;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Panier", mappedBy="pid")
+     */
+    private $paniers;
+
+    public function __construct()
+    {
+        $this->panier = new ArrayCollection();
+        $this->paniers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -157,5 +180,53 @@ class Produits
         $this->categorie = $categorie;
 
         return $this;
+    }
+
+    public function getQtt(): ?int
+    {
+        return $this->qtt;
+    }
+
+    public function setQtt(?int $qtt): self
+    {
+        $this->qtt = $qtt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Panier[]
+     */
+    public function getPanier(): Collection
+    {
+        return $this->panier;
+    }
+
+    public function addPanier(Panier $panier): self
+    {
+        if (!$this->panier->contains($panier)) {
+            $this->panier[] = $panier;
+            $panier->addPid($this);
+        }
+
+        return $this;
+    }
+
+    public function removePanier(Panier $panier): self
+    {
+        if ($this->panier->contains($panier)) {
+            $this->panier->removeElement($panier);
+            $panier->removePid($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Panier[]
+     */
+    public function getPaniers(): Collection
+    {
+        return $this->paniers;
     }
 }

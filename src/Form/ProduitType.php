@@ -26,6 +26,7 @@ class ProduitType extends AbstractType
                 'required' => false,
                 'label' => 'Image'
             ]) 
+            ->add('qtt', null, ['label' => 'Quantité'])
         ;
     }
     public function configureOptions(OptionsResolver $resolver)

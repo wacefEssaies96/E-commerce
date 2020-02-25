@@ -11,7 +11,7 @@
     {% for message in app.flashes('success') %}
         <div class="alert alert-success">{{ message }}</div>
     {% endfor %}
-<a class="btn btn-primary" href="{{ path('admin.ajouter') }}">Ajouter un nouveau produit</a>
+<a class="btn btn-primary" href="{{ path('admin.ajouter') }}" style="margin-bottom: 20px;">Ajouter un nouveau produit</a>
     <table class="table table-striped">
         <thead>
             <tr>

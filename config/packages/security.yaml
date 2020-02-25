@@ -38,7 +38,7 @@ security:
           - { path: /admin/supp, roles: ROLE_ADMIN }
           - { path: /admin/ajouter, roles: ROLE_ADMIN }
           - { path: /admin/user, roles: ROLE_ADMIN }
-          - { path: /admin/user/supp, roles: ROLE_ADMIN }
+          
            
 
 

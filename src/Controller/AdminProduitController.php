@@ -12,7 +12,7 @@ use Knp\Component\Pager\PaginatorInterface;
 class AdminProduitController extends AbstractController
 {
     /**
-     * @Route("/admin/produit", name="admin_produit")
+     * @Route("/admin", name="admin_produit")
      */
     public function index(PaginatorInterface $paginator,Request $request)
     {

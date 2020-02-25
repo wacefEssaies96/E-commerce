@@ -120,24 +120,33 @@ class IndexController extends AbstractController
 
         if($this->getUser()){
             $repository = $this->getDoctrine()->getRepository('App:Panier');
-            $exist = $repository->findOneBy(array('ProdId' => $id,'userId' => $this->getUser()->getId()));
-            if($exist == null){
+            $repositoryProduits = $this->getDoctrine()->getRepository('App:Produits');
+            $exist = $repository->findOneBy(array('pid' => $id,'uid' => $this->getUser()->getId()));
+            $produit = $repositoryProduits->find($id);
+            $qtt = $produit->getQtt();
+            if($exist == null && $qtt > 0){
                 $panier = new Panier();
-                $panier->setUserId($this->getUser()->getId());
-                $panier->setProdId($id);
+                $user = $this->getUser();
+                $panier->setUid($user);
+                $panier->setPid($produit);
                 $panier->setQtt(1);
                 $panier->setLiv(0);
+                $panier->setConfirm(0);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($panier);
                 $em->flush();
                 $this->addFlash('success','Le produit a été ajouté dans votre panier !');
             }
-            else{
+            if($exist != null){
                 $this->addFlash('error','Le produit est deja dans votre panier !');
+            }
+            if($qtt == 0){
+                $this->addFlash('error','Le produit est en repture !');
             }
         }else{
            return $this->redirect($this->generateUrl('app_login'));
         }
+        
         return $this->redirect($this->generateUrl('index'));
     }
 }

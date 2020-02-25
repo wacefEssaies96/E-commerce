@@ -22,6 +22,7 @@ class CommandeRepository extends ServiceEntityRepository
     public function findAllOrderBy()
     {
         return $this->createQueryBuilder('c')
+            ->where('confirm = 1')
             ->orderBy('c.userId')
             ->getQuery()
             ->getResult()

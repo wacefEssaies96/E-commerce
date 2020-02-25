@@ -30,12 +30,13 @@ class ProduitController extends AbstractController
             }
             else{
                 $repository = $this->getDoctrine()->getRepository('App:Panier');
-                $exist = $repository->findOneBy(array('ProdId' => $id,'userId' => $this->getUser()->getId()));
+                $exist = $repository->findOneBy(array('pid' => $produit,'uid' => $this->getUser()));
                 if($exist == null){
-                    $panier->setUserId($user->getId());
-                    $panier->setProdId($id);
+                    $panier->setUid($user);
+                    $panier->setPid($produit);
                     $panier->setQtt($qtt);
                     $panier->setLiv($liv);
+                    $panier->setConfirm(0);
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($panier);
                     $em->flush();

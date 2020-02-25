@@ -12,9 +12,10 @@
         {% endfor %}
         <div class="card" style="width: 40%; margin-left: 30%; padding: 50px;">
        <h1 class="h3 mb-3 font-weight-normal text-success">Veuillez remplir tous les champs :</h1>
-        {{ form_start(form) }}
-            {{ form_rest(form) }}
-        {{ form_end(form) }}
+            {{ form_start(form) }}
+                {{ form_rest(form) }}
+            {{ form_end(form) }}
+            <p>Vous êtes déjà inscrit ? <a href="{{ path('app_login') }}">Se connecter</a></p>
         </div>
       </div>
   </div>

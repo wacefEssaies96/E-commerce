@@ -9,15 +9,17 @@
 </style>
 <div class="jumbotron"><h1 class="text-center text-info">Commandes</h1></div>
 <div class="container">
+{# <a class="btn btn-success" style="margin-bottom: 20px;" href="{{ path('admin_supp_tous') }}">Confirmer tous</a> #}
     <div class="test">
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>UserId</th>
-                    <th>ProdId</th>
+                    <th>Clients</th>
+                    <th>Produits</th>
                     <th>Quantité</th>
                     <th>Livrason</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,16 +29,19 @@
                         {{item.id}}
                     </td>
                     <td class="text-info">
-                        {{item.userId}}
+                        {{item.uid.username}}
                     </td>
                     <td class="text-info">
-                        {{item.ProdId}}
+                        {{item.pid.nom}}
                     </td>
                     <td class="text-info">
                         {{item.qtt}}
                     </td>
                     <td class="text-info">
                         {{item.liv}}
+                    </td>
+                    <td>
+                        <a class="btn btn-success" href="{{ path('admin.confirm', {id:item.id} )}}">Confirmer</a>
                     </td>
                 </tr>
             {% endfor %}

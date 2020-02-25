@@ -45,6 +45,20 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('contact') }}">Contactez-nous</a>
                 </li>
+                {% if app.user %}
+                  {% if app.user.roles == ["ROLE_ADMIN"] %}
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ path('admin_produit') }}">Gerer les produits</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ path('admin.user') }}">Gerer les utilisateurs</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ path('admin_command') }}">Gerer les commandes</a>
+                  </li>
+                  {% endif %} 
+                {% endif %}   
+
             </ul>
            
             <ul class="navbar-nav">

@@ -56,28 +56,16 @@ class PaiementController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted()&&$form->isValid()){
             $repositoryPanier = $this->getDoctrine()->getRepository('App:Panier');
-            $panier = $repositoryPanier->findBy(array('userId' => $user));
+            $repositoryProduits = $this->getDoctrine()->getRepository('App:Produits');
             $em = $this->getDoctrine()->getManager();
-            foreach ($panier as $item){
-                $commande = new Commande();
-                $commande->setUserId($item->getUserId());
-                $commande->setProdId($item->getProdId());
-                $commande->setQtt($item->getQtt());
-                $commande->setLiv($item->getLiv());
-                $date = new \DateTime('now');
-                $commande->setUpdatedAt($date);
-                $em->persist($commande);
+            $panier = $repositoryPanier->findOrder($user);
+            foreach($panier as $item){
+                $item->setConfirm(1);
+                $em->persist($item);
                 $em->flush();
             }
-            if($form->isSubmitted()){
-                $length = $repositoryPanier->findBy(array('userId' => $user));
-                for($i=0;$i<sizeof($length);$i++){
-                    $item = $repositoryPanier->findOneBy(array('userId' => $user));
-                    $em->remove($item);
-                    $em->flush();
-                }
-            }
-            $this->addFlash('success','Votre commande sera traité dans quelque minute !');
+            
+            $this->addFlash('success','Votre commande sera traité par un administrateur !');
             return $this->redirect($this->generateUrl('panier.produits'));
         }
         return $this->render('paiement/paiement.html.twig', [

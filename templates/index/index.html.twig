@@ -37,11 +37,10 @@
                 <a class="dropdown-item" href="{{ path('index.categorie.souris') }}">Souris</a>
             </div>
         </div>
-        
-        <div class="row justify-content-between">
+        <div class="row justify-content-between" >
         {% if list %}
             {% for produit in list %}
-                <div class="col-4">
+                <div class="col-4" >
                     <div class="card bg-light">
                         {% if produit.filename %}
                             <img src="/images/produits/{{ produit.filename }}" style="height:100%; width:100%;">
@@ -50,8 +49,10 @@
                             <a href="{{ path('produit.show', { id:produit.id}) }}">{{produit.nom}}</a>
                         </h5>
                         <p class="text-success text-center">Prix : {{produit.prix}} dt</p>
-                    
-                        <a class="btn btn-success" href=" {{ path('index.ajouter.panier', {id:produit.id}) }} ">Ajouter au panier</a>
+                        {% if produit.qtt == 0 %}
+                            <strong class="text-danger text-center" >NON DISPONIBLE</strong>
+                        {% endif %}
+                            <a class="btn btn-success" href=" {{ path('index.ajouter.panier', {id:produit.id}) }} ">Ajouter au panier</a>
                     </div>
                 </div>
             {% endfor %}
@@ -59,9 +60,9 @@
             <div><h3 class="text-danger">Aucun produit trouvé ! </h3></div>
         {% endif %}
         </div>
-        <div class="navigation" style="margin-top:20px; margin-left: 36%;">
-            {{ knp_pagination_render(list) }}
-        </div>
-        </div>
+            <div class="navigation" style="margin-top:20px; margin-left: 36%;">
+                {{ knp_pagination_render(list) }}
+            </div>
     </div>
+</div>
 {% endblock %}

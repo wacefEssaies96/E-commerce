@@ -12,15 +12,21 @@
       <div class="alert alert-success">{{ message }}</div>
     {% endfor %}
     {% for message in app.flashes('error') %}
-            <div style="margin-left:200px;" class="alert alert-danger text-center">{{ message }}</div>
-        {% endfor %}
+        <div style="margin-left:200px;" class="alert alert-danger text-center">{{ message }}</div>
+    {% endfor %}
    
     {% if panier %}
         <div class="text-info">
             <strong>Prix total {{ total }} dt</strong>
         </div>
 
-        <a href="{{ path('paiement', { total: total }) }}" class="btn btn-success"><img class="ico" src="{{ asset('images/background/iconValidPanier.png') }}">Acheter tous</a>
+        <a 
+            href="{{ path('paiement', { total: total }) }}" 
+            class="btn btn-success"
+            style="margin-bottom: 20px;"
+            >
+            <img class="ico" src="{{ asset('images/background/iconValidPanier.png') }}">Acheter tous
+        </a>
 
         {% for produit in panier %}   
         <div class="card">

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -24,16 +26,6 @@ class Panier
 
     /**
      * @ORM\Column(type="integer")
-     */
-    private $userId;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $ProdId;
-
-    /**
-     * @ORM\Column(type="integer")
      * @Assert\Range(min=1, max=10)
      */
     private $qtt;
@@ -42,6 +34,26 @@ class Panier
      * @ORM\Column(type="integer")
      */
     private $liv;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="panier")
+     * 
+     */
+    private $uid;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Produits", inversedBy="paniers")
+     */
+    private $pid;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $confirm;
+
+    
+
+
 
     public function getId(): ?int
     {
@@ -95,4 +107,43 @@ class Panier
 
         return $this;
     }
+
+    public function getUid(): ?User
+    {
+        return $this->uid;
+    }
+
+    public function setUid(?User $uid): self
+    {
+        $this->uid = $uid;
+
+        return $this;
+    }
+
+    public function getPid(): ?Produits
+    {
+        return $this->pid;
+    }
+
+    public function setPid(?Produits $pid): self
+    {
+        $this->pid = $pid;
+
+        return $this;
+    }
+
+    public function getConfirm(): ?int
+    {
+        return $this->confirm;
+    }
+
+    public function setConfirm(?int $confirm): self
+    {
+        $this->confirm = $confirm;
+
+        return $this;
+    }
+
+
+   
 }
