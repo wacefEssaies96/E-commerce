@@ -42,7 +42,7 @@ class Panier
     private $uid;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Produits", inversedBy="paniers")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Produits", inversedBy="panier")
      */
     private $pid;
 

@@ -28,14 +28,15 @@ class PanierController extends AbstractController
         $total = 0;
         if(!empty($panier)){
             foreach ($panier as $item){
-                $total += ($item['prix']*$item[0]->getQtt());
                 $produit = $repositoryProduits->find($item['id']);
                 if($item[0]->getQtt() > $produit->getQtt() ){
-                $item[0]->setQtt($produit->getQtt());
-                $em->persist($item[0]);
-                $em->flush();
+                    $item[0]->setQtt($produit->getQtt());
+                    $em->persist($item[0]);
+                    $em->flush();
                 }
+                $total += ($item['prix']*$item[0]->getQtt());
             }
+            
         }
         return $this->render('panier/index.html.twig', [
             'panier' => $panier,

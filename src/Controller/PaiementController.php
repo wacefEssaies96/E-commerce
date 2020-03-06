@@ -61,7 +61,14 @@ class PaiementController extends AbstractController
             $panier = $repositoryPanier->findOrder($user);
             foreach($panier as $item){
                 $item->setConfirm(1);
+                $p = $item->getPid();
+                $p->getId();
+                $qttp = $p->getQtt(); 
+                $qttc = $item->getQtt();
+                $produit = $repositoryProduits->find($p);
+                $p->setQtt($qttp-=$qttc);
                 $em->persist($item);
+                $em->persist($p);
                 $em->flush();
             }
             

@@ -121,7 +121,7 @@ class IndexController extends AbstractController
         if($this->getUser()){
             $repository = $this->getDoctrine()->getRepository('App:Panier');
             $repositoryProduits = $this->getDoctrine()->getRepository('App:Produits');
-            $exist = $repository->findOneBy(array('pid' => $id,'uid' => $this->getUser()->getId()));
+            $exist = $repository->findOneBy(array('pid' => $id,'uid' => $this->getUser()->getId(), 'confirm' => 0));
             $produit = $repositoryProduits->find($id);
             $qtt = $produit->getQtt();
             if($exist == null && $qtt > 0){

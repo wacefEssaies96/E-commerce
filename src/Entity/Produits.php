@@ -24,6 +24,7 @@ class Produits
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * 
      */
     private $id;
 
@@ -70,19 +71,13 @@ class Produits
     private $qtt;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Panier", mappedBy="pid")
-     */
-    private $panier;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Panier", mappedBy="pid")
      */
-    private $paniers;
+    private $panier;
 
     public function __construct()
     {
         $this->panier = new ArrayCollection();
-        $this->paniers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -222,11 +217,4 @@ class Produits
         return $this;
     }
 
-    /**
-     * @return Collection|Panier[]
-     */
-    public function getPaniers(): Collection
-    {
-        return $this->paniers;
-    }
 }

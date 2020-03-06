@@ -20,17 +20,17 @@ class ContactController extends AbstractController
         $form = $this->createForm(ContactType::class,$contact);
         $form->handleRequest($request);
         if($form->isSubmitted()&&$form->isValid()){
-            $message = (new \Swift_Message('test'))
-                ->setTo('wacef.stratrait@gmail.com')
-                ->setBody(
-                    $this->renderView(
-                        'email/test.html.twig',[
+            // $message = (new \Swift_Message('test'))
+            //     ->setTo('wacef.stratrait@gmail.com')
+            //     ->setBody(
+            //         $this->renderView(
+            //             'email/test.html.twig',[
 
-                        ],
-                        'text/html'
-                    )
-                );
-                $mailer->send($message);
+            //             ],
+            //             'text/html'
+            //         )
+            //     );
+            //     $mailer->send($message);
             $this->addFlash('success','Votre E-mail a été envoyé avec succés !');
             return $this->redirect($this->generateUrl('index'));
         }

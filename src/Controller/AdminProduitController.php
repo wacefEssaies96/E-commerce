@@ -56,7 +56,7 @@ class AdminProduitController extends AbstractController
         $form = $this->createForm(ProduitType::class,$produit);
         $form->handleRequest($request);
         if($form->isSubmitted()&&$form->isValid()){
-            $this->addFlash('success', 'Produit ajouté avec succées');
+            $this->addFlash('test', 'Produit ajouté avec succées');
             $em = $this->getDoctrine()->getManager();
             $em->persist($produit);
             $em->flush();
@@ -71,8 +71,7 @@ class AdminProduitController extends AbstractController
     */
     public function supprimer($id){
 
-        $repository = $this->getDoctrine()->getRepository('App:Produits');
-        $produit = $repository->find($id);
+        $produit = $this->getDoctrine()->getRepository('App:Produits')->find($id);
         $em = $this->getDoctrine()->getManager();
         $em->remove($produit);
         $em->flush();
